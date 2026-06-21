@@ -48,6 +48,8 @@ var ErrInvalid{{.enum.Name}} = errors.New("not a valid {{.enum.Name}}")
 
 var _{{.enum.Name}}Map = {{ mapify .enum }}
 
+var _{{.enum.Name}}ValidityMap = {{ mapifyValidity .enum }}
+
 // String implements the Stringer interface.
 func (x {{.enum.Name}}) String() string {
 	if str, ok := _{{.enum.Name}}Map[x]; ok {
@@ -59,8 +61,7 @@ func (x {{.enum.Name}}) String() string {
 // IsValid provides a quick way to determine if the typed value is
 // part of the allowed enumerated values
 func (x {{.enum.Name}}) IsValid() bool {
-	_, ok := _{{.enum.Name}}Map[x]
-	return ok
+	return _{{.enum.Name}}ValidityMap[x]
 }
 
 var _{{.enum.Name}}Value = {{ unmapify .enum .lowercase }}
@@ -205,8 +206,8 @@ func (x *{{.enum.Name}}) Scan(value interface{}) (err error) {
 			}
 		}{{end}}
 	}
-	
-	return 
+
+	return
 }
 
 {{ if or .sql .sqlnullstr }}

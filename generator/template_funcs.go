@@ -39,6 +39,20 @@ func Mapify(e Enum) (ret string, err error) {
 	return
 }
 
+func MapifyValidity(e Enum) (ret string, err error) {
+	ret = fmt.Sprintf("map[%s]bool{\n", e.Name)
+	index := 0
+	for _, val := range e.Values {
+		if val.Name != skipHolder {
+			nextIndex := index + len(val.Name)
+			ret = fmt.Sprintf("%s%s: %v,\n", ret, val.PrefixedName, val.Valid)
+			index = nextIndex
+		}
+	}
+	ret = ret + `}`
+	return
+}
+
 // Unmapify returns a map that is all of the indexes for a string value lookup
 func Unmapify(e Enum, lowercase bool) (ret string, err error) {
 	if e.Type == "string" {
