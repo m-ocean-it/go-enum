@@ -4,6 +4,7 @@ package generator
 type GeneratorConfig struct {
 	NoPrefix          bool              `json:"no_prefix"`
 	NoIota            bool              `json:"no_iota"`
+	InvalidZero       bool              `json:"invalid_zero"`
 	LowercaseLookup   bool              `json:"lowercase_lookup"`
 	CaseInsensitive   bool              `json:"case_insensitive"`
 	Marshal           bool              `json:"marshal"`

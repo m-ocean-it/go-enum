@@ -213,6 +213,7 @@ func (g *Generator) Generate(f *ast.File) ([]byte, error) {
 			"nocase":        g.CaseInsensitive,
 			"nocomments":    g.NoComments,
 			"noIota":        g.NoIota,
+			"invalidZero":   g.InvalidZero,
 			"marshal":       g.Marshal,
 			"sql":           g.SQL,
 			"sqlint":        g.SQLInt,

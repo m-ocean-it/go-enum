@@ -26,6 +26,7 @@ type rootT struct {
 	FileNames         cli.StringSlice
 	NoPrefix          bool
 	NoIota            bool
+	InvalidZero       bool
 	Lowercase         bool
 	NoCase            bool
 	Marshal           bool
@@ -229,6 +230,11 @@ func main() {
 				Usage:       "Disables the use of iota in generated enums.",
 				Destination: &argv.NoIota,
 			},
+			&cli.BoolFlag{
+				Name:        "invalid-zero",
+				Usage:       "Treat zero-value as invalid.",
+				Destination: &argv.InvalidZero,
+			},
 		},
 		Action: func(ctx *cli.Context) error {
 			// Validate incompatible flag combinations
@@ -262,6 +268,7 @@ func main() {
 				config := generator.GeneratorConfig{
 					NoPrefix:          argv.NoPrefix,
 					NoIota:            argv.NoIota,
+					InvalidZero:       argv.InvalidZero,
 					LowercaseLookup:   argv.Lowercase || argv.NoCase,
 					CaseInsensitive:   argv.NoCase,
 					Marshal:           argv.Marshal,
